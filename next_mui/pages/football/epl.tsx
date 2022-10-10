@@ -8,10 +8,10 @@ import XgTable from "../../components/xg/table";
 import { pool } from "../../database/db";
 
 type Props = {
-  fixture: ResultDb[];
+  fixtures: ResultDb[];
 };
 
-const About: NextPage<Props> = ({ fixture }) => {
+const About: NextPage<Props> = ({ fixtures }) => {
   return (
     <Container maxWidth="lg">
       <Box
@@ -27,7 +27,7 @@ const About: NextPage<Props> = ({ fixture }) => {
           Premier League 2022/2023 Completed Fixtures
         </Typography>
         <Box maxWidth="lg">
-          <XgTable fixture={fixture}></XgTable>
+          <XgTable fixtures={fixtures}></XgTable>
         </Box>
       </Box>
     </Container>
@@ -40,7 +40,7 @@ const About: NextPage<Props> = ({ fixture }) => {
 export async function getStaticProps() {
   const season = 12310;
 
-  let fixture: ResultDb[] = [];
+  let fixtures: ResultDb[] = [];
   try {
     const queryResult = await pool.query(`
       SELECT fixture_id,
@@ -57,13 +57,13 @@ export async function getStaticProps() {
       ORDER BY start_time DESC, home_name;
       `);
 
-    fixture = queryResult.rows;
+      fixtures = queryResult.rows;
   } catch (err: any) {
     console.error(err.message);
   }
 
   return {
-    props: { fixture: fixture },
+    props: { fixtures },
   };
 }
 
