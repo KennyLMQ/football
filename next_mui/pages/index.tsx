@@ -40,7 +40,7 @@ const Home: NextPage = () => {
           </CardActions> */}
         </Card>
         <br/>
-        <Link href="/fpl" color="secondary">
+        <Link href="/football/epl" color="secondary">
           Go to the FPL page
         </Link>
         {/* <ProTip />

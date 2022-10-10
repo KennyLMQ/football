@@ -1,5 +1,5 @@
-import { AllFixtures, Status } from "../../../types/all_fixtures";
-import { pool } from "../../../database/db";
+import { AllFixtures, Status } from "../../../../types/all_fixtures";
+import { pool } from "../../../../database/db";
 
 export default async function handler(req: any, res: any) {
   const season = 12310;
@@ -20,7 +20,7 @@ export default async function handler(req: any, res: any) {
   try {
     const createTable = await pool.query(
       `
-        CREATE TABLE IF NOT EXISTS fixture_${season} (
+        CREATE TABLE IF NOT EXISTS fixtures_${season} (
           fixture_id INT UNIQUE NOT NULL,
           start_time TIMESTAMP NOT NULL,
           home_id INT NOT NULL,
@@ -46,7 +46,7 @@ export default async function handler(req: any, res: any) {
   let fixture_id_list: number[] = [];
   try {
     const fixture_id = await pool.query(
-      `SELECT fixture_id FROM fixture_${season}`
+      `SELECT fixture_id FROM fixtures_${season}`
     );
     fixture_id_list = fixture_id.rows.map((value) => value.fixture_id);
   } catch (err: any) {
@@ -69,7 +69,7 @@ export default async function handler(req: any, res: any) {
     filteredResult.forEach(async (value) => {
       const newFixture = await pool.query(
         `
-        INSERT INTO fixture_${season} 
+        INSERT INTO fixtures_${season} 
         (
           fixture_id,
           start_time,
@@ -88,11 +88,11 @@ export default async function handler(req: any, res: any) {
           ${value.id},
           TO_TIMESTAMP(${value.startTime}),
           ${value.homeTeam.id},
-          '${value.homeTeam.name}',
+          '${value.homeTeam.name.trim()}',
           ${value.homeScore?.final},
           ${value.xg?.home},
           ${value.awayTeam.id},
-          '${value.awayTeam.name}',
+          '${value.awayTeam.name.trim()}',
           ${value.awayScore?.final},
           ${value.xg?.away},
           '${JSON.stringify(value.events).replaceAll("'", "_")}',

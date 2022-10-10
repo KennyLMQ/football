@@ -8,6 +8,7 @@ import {
   TableBody,
   tableCellClasses,
 } from "@mui/material";
+import Link from "../../src/Link";
 import { ResultDb } from "../../types/fixture_db";
 
 type Props = {
@@ -31,7 +32,14 @@ export function XgTable({ fixture }: Props) {
               key={match.fixture_id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell align="right">{match.home_name}</TableCell>
+              <TableCell align="right">
+                <Link
+                  color="inherit"
+                  href={`/football/team/${match.home_name.toLowerCase()}`}
+                >
+                  {match.home_name}
+                </Link>
+              </TableCell>
               <TableCell align="center">
                 <Table
                   size="small"
@@ -58,7 +66,14 @@ export function XgTable({ fixture }: Props) {
                   </TableBody>
                 </Table>
               </TableCell>
-              <TableCell align="left">{match.away_name}</TableCell>
+              <TableCell align="left">
+                <Link
+                  color="inherit"
+                  href={`/football/team/${match.away_name.toLowerCase()}`}
+                >
+                  {match.away_name}
+                </Link>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

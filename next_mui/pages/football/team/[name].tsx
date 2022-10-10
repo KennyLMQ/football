@@ -1,17 +1,19 @@
 import * as React from "react";
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { ResultDb } from "../types/fixture_db";
-import XgTable from "../components/xg/table";
-import { pool } from "../database/db";
+import { ResultDb } from "../../../types/fixture_db";
+import XgTable from "../../../components/xg/table";
+import { pool } from "../../../database/db";
+import { Detail } from "../../../types/all_fixtures";
 
 type Props = {
   fixture: ResultDb[];
 };
 
-const About: NextPage<Props> = ({ fixture }) => {
+const Team: NextPage<Props> = ({ fixture }) => {
   return (
     <Container maxWidth="lg">
       <Box
@@ -37,7 +39,7 @@ const About: NextPage<Props> = ({ fixture }) => {
 // This function gets called at build time on server-side.
 // It won't be called on client-side, so you can even do
 // direct database queries.
-export async function getStaticProps() {
+export async function getStaticProps({ params }: { params: { name: string } }) {
   const season = 12310;
 
   let fixture: ResultDb[] = [];
@@ -53,7 +55,9 @@ export async function getStaticProps() {
              away_name,
              away_score,
              away_xg
-      FROM fixture_${season}
+      FROM fixtures_${season}
+      WHERE LOWER (home_name) = '${params.name}'
+        OR  LOWER (away_name) = '${params.name}'
       ORDER BY start_time DESC, home_name;
       `);
 
@@ -67,4 +71,28 @@ export async function getStaticProps() {
   };
 }
 
-export default About;
+export async function getStaticPaths() {
+  let teamList: { team_id: number; team_name: string }[] = [];
+
+  try {
+    const teamQuery = await pool.query(`SELECT * FROM teams`);
+    teamList = teamQuery.rows;
+  } catch (err: any) {
+    console.error(err.message);
+  }
+
+  let params = teamList.map((value) => {
+    return {
+      params: {
+        name: value.team_name.trim().toLowerCase()
+      },
+    };
+  });
+
+  return {
+    paths: params,
+    fallback: false,
+  };
+}
+
+export default Team;
