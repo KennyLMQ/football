@@ -49,7 +49,7 @@ export default function MyApp(props: MyAppProps) {
     <CacheProvider value={emotionCache}>
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
-        <title>Kenny's App</title>
+        <title>KennyLMQ.com</title>
       </Head>
       <ThemeProvider
         theme={isDarkTheme ? createDarkTheme() : createLightTheme()}

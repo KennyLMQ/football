@@ -4,8 +4,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Link from "../src/Link";
-import ProTip from "../src/ProTip";
-import Copyright from "../src/Copyright";
+import { Card, CardMedia, CardContent, CardActions, Button } from "@mui/material";
 
 const Home: NextPage = () => {
   return (
@@ -19,11 +18,30 @@ const Home: NextPage = () => {
           alignItems: "center",
         }}
       >
-        <Typography variant="h4" component="h1" gutterBottom>
-          MUI v5 + Next.js with TypeScript example
-        </Typography>
-        <Link href="/about" color="secondary">
-          Go to the about page
+        <Card sx={{ maxWidth: 345 }}>
+          <CardMedia
+            component="img"
+            height="140"
+            image="/images/wip.png"
+            alt="WIP"
+          />
+          {/* <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              Lizard
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Lizards are a widespread group of squamate reptiles, with over
+              6,000 species, ranging across all continents except Antarctica
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small">Share</Button>
+            <Button size="small">Learn More</Button>
+          </CardActions> */}
+        </Card>
+        <br/>
+        <Link href="/fpl" color="secondary">
+          Go to the FPL page
         </Link>
         {/* <ProTip />
         <Copyright /> */}

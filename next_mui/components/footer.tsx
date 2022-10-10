@@ -19,7 +19,7 @@ export default function Footer(props: any) {
         {...props}
       >
         {"Copyright © "}
-        <Link color="inherit" href="https://kennylmq.com">
+        <Link color="inherit" href="/">
           KennyLMQ.com
         </Link>{" "}
         {new Date().getFullYear()}
