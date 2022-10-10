@@ -1,5 +1,6 @@
 import {
   AppBar,
+  Box,
   FormControlLabel,
   FormGroup,
   Switch,
@@ -7,8 +8,9 @@ import {
   Typography,
 } from "@mui/material";
 import { Container } from "@mui/system";
-import LightModeIcon from '@mui/icons-material/LightMode';
+import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import HomeIcon from "@mui/icons-material/Home";
 
 interface HeaderProps {
   isDarkTheme?: boolean;
@@ -20,15 +22,27 @@ const Header: React.FC<HeaderProps> = ({ isDarkTheme, changeTheme }) => {
     <AppBar component="nav">
       <Container maxWidth="lg">
         <Toolbar variant="dense">
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <HomeIcon sx={{ mr: 1 }} />
+          <Typography
+            variant="h6"
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              fontWeight: 700,
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
             Home
           </Typography>
+          <Box sx={{ flexGrow: 1 }}></Box>
           <FormGroup>
             <FormControlLabel
               control={
                 <Switch checked={isDarkTheme} onClick={() => changeTheme()} />
               }
-              label={isDarkTheme ? <DarkModeIcon/> : <LightModeIcon/>}
+              label={isDarkTheme ? <DarkModeIcon /> : <LightModeIcon />}
             />
           </FormGroup>
         </Toolbar>
