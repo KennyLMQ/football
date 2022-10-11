@@ -1,18 +1,30 @@
 import { createTheme, Theme } from "@mui/material/styles";
-import { red } from "@mui/material/colors";
 
 export function createDarkTheme(): Theme {
   return createTheme({
     palette: {
-      mode: "dark",
+      mode: 'dark',
       primary: {
-        main: "#556cd6",
+        main: '#88C0D0',
       },
       secondary: {
-        main: "#19857b",
+        main: '#81A1C1',
       },
       error: {
-        main: red.A400,
+        main: '#BF616A',
+      },
+      warning: {
+        main: '#EBCB8B',
+      },
+      success: {
+        main: '#A3BE8C',
+      },
+      info: {
+        main: '#5E81AC',
+      },
+      background: {
+        default: '#2E3440',
+        paper: '#3B4252',
       },
     },
   });

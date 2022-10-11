@@ -1,18 +1,30 @@
 import { createTheme, Theme } from "@mui/material/styles";
-import { red } from "@mui/material/colors";
 
 export function createLightTheme(): Theme {
   return createTheme({
     palette: {
-      mode: "light",
+      mode: 'light',
       primary: {
-        main: "#556cd6",
+        main: '#88c0d0',
       },
       secondary: {
-        main: "#19857b",
+        main: '#81A1C1',
       },
       error: {
-        main: red.A400,
+        main: '#BF616A',
+      },
+      warning: {
+        main: '#EBCB8B',
+      },
+      success: {
+        main: '#A3BE8C',
+      },
+      info: {
+        main: '#5E81AC',
+      },
+      background: {
+        default: '#eceff4',
+        paper: '#d8dee9',
       },
     },
   });
