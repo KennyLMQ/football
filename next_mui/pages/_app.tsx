@@ -25,13 +25,9 @@ export default function MyApp(props: MyAppProps) {
   const [isDarkTheme, setIsDarkTheme] = useState(true);
 
   React.useEffect(() => {
-    console.debug(`localStorage theme: ${!localStorage.getItem("theme")}`);
-
     if (localStorage.getItem("theme") === "dark" && !isDarkTheme) {
-      console.debug("useEffect set dark theme.");
       setIsDarkTheme(true);
     } else if (localStorage.getItem("theme") === "light" && isDarkTheme) {
-      console.debug("useEffect set light theme.");
       setIsDarkTheme(false);
     }
   }, []);
@@ -39,7 +35,6 @@ export default function MyApp(props: MyAppProps) {
   const changeTheme = () => {
     const newTheme = !isDarkTheme;
 
-    console.debug(`Theme change triggered: isDarkTheme: ${newTheme}`);
     localStorage.setItem("theme", newTheme === true ? "dark" : "light");
 
     setIsDarkTheme(newTheme);
@@ -56,7 +51,7 @@ export default function MyApp(props: MyAppProps) {
       >
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <Header isDarkTheme={isDarkTheme} changeTheme={changeTheme}/>
+        <Header isDarkTheme={isDarkTheme} changeTheme={changeTheme} />
         <Container sx={{ pt: 6, pb: 6 }}>
           <Component {...pageProps} />
         </Container>

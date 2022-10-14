@@ -6,16 +6,18 @@ services:
       # dockerfile: Dockerfile
       target: base
     command: sh -c "npm install && npm run dev"
+    container_name: next_web
     environment:
       - NODE_ENV=development
       - PORT=3000
       - DATABASE_LOGIN_URL=postgresql://next_mui_user:v^uZwsx$DR&8@database:5432/next_mui_db
     ports:
       - 3000:3000
-    working_dir: /root/app
     volumes:
       - ./next_mui:/root/app
+    working_dir: /root/app
   database:
+    container_name: next_db
     image: "postgres"
     ports:
       - 5432:5432
