@@ -4,16 +4,15 @@ import { useRouter } from "next/router";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { ResultDb } from "../../../types/fixture_db";
+import { FixtureDb } from "../../../types/fixturesDb";
 import XgTable from "../../../components/xg/table";
 import { pool } from "../../../database/db";
-import { Detail } from "../../../types/all_fixtures";
 
 type Props = {
-  fixture: ResultDb[];
+  fixtures: FixtureDb[];
 };
 
-const Team: NextPage<Props> = ({ fixture }) => {
+const Team: NextPage<Props> = ({ fixtures }) => {
   return (
     <Container maxWidth="lg">
       <Box
@@ -29,7 +28,7 @@ const Team: NextPage<Props> = ({ fixture }) => {
           Premier League 2022/2023 Completed Fixtures
         </Typography>
         <Box maxWidth="lg">
-          <XgTable fixture={fixture}></XgTable>
+          <XgTable fixtures={fixtures} />
         </Box>
       </Box>
     </Container>
@@ -42,7 +41,7 @@ const Team: NextPage<Props> = ({ fixture }) => {
 export async function getStaticProps({ params }: { params: { name: string } }) {
   const season = 12310;
 
-  let fixture: ResultDb[] = [];
+  let fixtures: FixtureDb[] = [];
   try {
     const queryResult = await pool.query(`
       SELECT fixture_id,
@@ -59,15 +58,16 @@ export async function getStaticProps({ params }: { params: { name: string } }) {
       WHERE LOWER (home_name) = '${params.name}'
         OR  LOWER (away_name) = '${params.name}'
       ORDER BY start_time DESC, home_name;
-      `);
+    `);
 
-    fixture = queryResult.rows;
+    fixtures = queryResult.rows;
   } catch (err: any) {
     console.error(err.message);
   }
 
   return {
-    props: { fixture: fixture },
+    props: { fixtures },
+    revalidate: 60,
   };
 }
 
@@ -84,7 +84,7 @@ export async function getStaticPaths() {
   let params = teamList.map((value) => {
     return {
       params: {
-        name: value.team_name.trim().toLowerCase()
+        name: value.team_name.trim().toLowerCase(),
       },
     };
   });

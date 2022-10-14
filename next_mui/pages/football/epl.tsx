@@ -3,12 +3,12 @@ import type { NextPage } from "next";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { ResultDb } from "../../types/fixture_db";
+import { FixtureDb } from "../../types/fixturesDb";
 import XgTable from "../../components/xg/table";
 import { pool } from "../../database/db";
 
 type Props = {
-  fixtures: ResultDb[];
+  fixtures: FixtureDb[];
 };
 
 const About: NextPage<Props> = ({ fixtures }) => {
@@ -40,7 +40,7 @@ const About: NextPage<Props> = ({ fixtures }) => {
 export async function getStaticProps() {
   const season = 12310;
 
-  let fixtures: ResultDb[] = [];
+  let fixtures: FixtureDb[] = [];
   try {
     const queryResult = await pool.query(`
       SELECT fixture_id,
@@ -55,15 +55,16 @@ export async function getStaticProps() {
              away_xg
       FROM fixtures_${season}
       ORDER BY start_time DESC, home_name;
-      `);
+    `);
 
-      fixtures = queryResult.rows;
+    fixtures = queryResult.rows;
   } catch (err: any) {
     console.error(err.message);
   }
 
   return {
     props: { fixtures },
+    revalidate: 60,
   };
 }
 

@@ -4,33 +4,23 @@
 //
 //   "Set quicktype target language"
 
-export interface AllFixtures {
-  result: Result[];
+export interface Fixtures {
+  result: Fixture[];
 }
 
-export interface Result {
+export interface Fixture {
   id:         number;
   status:     Status;
   startTime:  number;
   updateTime: number;
-  homeTeam:   Detail;
-  awayTeam:   Detail;
-  country:    Detail;
-  tournament: Detail;
-  season:     Detail;
+  homeTeam:   Details;
+  awayTeam:   Details;
+  country:    Details;
+  tournament: Details;
+  season:     Details;
   events:     Event[];
   odds:       Odd[];
   duration?:  Duration;
-  homeScore?: Score;
-  awayScore?: Score;
-  xg?:        Xg;
-}
-
-export interface ResultReduced {
-  id:         number;
-  startTime:  number;
-  homeTeam:   Detail;
-  awayTeam:   Detail;
   homeScore?: Score;
   awayScore?: Score;
   xg?:        Xg;
@@ -41,7 +31,7 @@ export interface Score {
   firstHalf: number;
 }
 
-export interface Detail {
+export interface Details {
   id:   number;
   name: string;
 }
@@ -56,7 +46,7 @@ export interface Event {
   homeScore:         number;
   awayScore:         number;
   minute:            number;
-  author:            Detail;
+  author:            Details;
   teamId:            number;
   type:              EventType;
   xg:                number | null;
