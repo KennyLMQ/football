@@ -30,7 +30,7 @@ export default function MyApp(props: MyAppProps) {
     } else if (localStorage.getItem("theme") === "light" && isDarkTheme) {
       setIsDarkTheme(false);
     }
-  }, []);
+  }, [isDarkTheme]);
 
   const changeTheme = () => {
     const newTheme = !isDarkTheme;
@@ -52,7 +52,7 @@ export default function MyApp(props: MyAppProps) {
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <Header isDarkTheme={isDarkTheme} changeTheme={changeTheme} />
-        <Container sx={{ pt: 6, pb: 6 }}>
+        <Container sx={{ pt: 6 }}>
           <Component {...pageProps} />
         </Container>
         <Footer></Footer>
