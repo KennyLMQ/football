@@ -1,6 +1,10 @@
 import { pool } from "../../../../database/db";
 
 export default async function handler(req: any, res: any) {
+  if (req.headers["api-secret"] !== process.env.API_SECRET) {
+    return res.status(400).json({ message: "Bad Request" });
+  }
+
   const season = 12310;
   let teams = [];
 
@@ -13,11 +17,10 @@ export default async function handler(req: any, res: any) {
         );
       `
     );
-
     // console.debug(createTable);
   } catch (err: any) {
     console.error(err.message);
-    res.status(500).json({ message: "Error creating table" });
+    return res.status(500).json({ message: "Error creating table" });
   }
 
   try {
@@ -33,11 +36,13 @@ export default async function handler(req: any, res: any) {
       `
     );
 
-    // console.log(teamsQuery.rows);
+    if (teamsQuery.rowCount === 0) {
+      return res.status(404).json({ message: "Not Found"})
+    }
     teams = teamsQuery.rows;
   } catch (err: any) {
     console.error(err.message);
-    res.status(500).json({ message: "Error retrieving fixture data" });
+    return res.status(500).json({ message: "Error retrieving fixture data" });
   }
 
   let teamIdList: number[] = [];
@@ -46,7 +51,7 @@ export default async function handler(req: any, res: any) {
     teamIdList = teamIdQuery.rows.map((value) => value.team_id);
   } catch (err: any) {
     console.error(err.message);
-    res.status(500).json({ message: "Error retrieving team data" });
+    return res.status(500).json({ message: "Error retrieving team data" });
   }
 
   const filteredResult = teams.filter(
@@ -66,7 +71,7 @@ export default async function handler(req: any, res: any) {
       );
     } catch (error: any) {
       console.error(error.message);
-      res.status(500).json({ message: "Error inserting table" });
+      return res.status(500).json({ message: "Error inserting table" });
     }
   });
 

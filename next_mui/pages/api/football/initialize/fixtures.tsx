@@ -2,20 +2,11 @@ import { Fixtures, Status } from "../../../../types/fixturesApi";
 import { pool } from "../../../../database/db";
 
 export default async function handler(req: any, res: any) {
+  if (req.headers["api-secret"] !== process.env.API_SECRET) {
+    return res.status(400).json({ message: "Bad Request" });
+  }
+
   const season = 12310;
-
-  const response = await fetch(
-    `${process.env.XG_URL!}/seasons/${season}/fixtures/`,
-    {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": process.env.XG_KEY!,
-        "X-RapidAPI-Host": process.env.XG_HOST!,
-      },
-    }
-  );
-
-  const posts: Fixtures = await response.json();
 
   try {
     const createTable = await pool.query(
@@ -36,22 +27,43 @@ export default async function handler(req: any, res: any) {
         );
       `
     );
-
     // console.debug(createTable);
   } catch (err: any) {
     console.error(err.message);
-    res.status(500).json({ message: "Error creating table" });
+    return res.status(500).json({ message: "Error creating table" });
   }
+
+  const response = await fetch(
+    `${process.env.XG_URL!}/seasons/${season}/fixtures/`,
+    {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Key": process.env.XG_KEY!,
+        "X-RapidAPI-Host": process.env.XG_HOST!,
+      },
+    }
+  );
+
+  if (response.status !== 200) {
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+
+  const posts: Fixtures = await response.json();
 
   let fixture_id_list: number[] = [];
   try {
     const fixture_id = await pool.query(
       `SELECT fixture_id FROM fixtures_${season}`
     );
+
+    if (fixture_id.rowCount !== 0) {
+      return res.status(404).json({ message: "Not Found" });
+    }
+
     fixture_id_list = fixture_id.rows.map((value) => value.fixture_id);
   } catch (err: any) {
     console.error(err.message);
-    res.status(500).json({ message: "Error retrieving data" });
+    return res.status(500).json({ message: "Error retrieving data" });
   }
 
   const filteredResult = posts.result.filter(
@@ -62,7 +74,7 @@ export default async function handler(req: any, res: any) {
 
   console.log(filteredResult.length);
   if (filteredResult.length === 0) {
-    res.status(200).json({ message: "Is there success in doing nothing?" });
+    return res.status(200).json({ message: "Is there success in doing nothing?" });
   }
 
   try {
@@ -103,8 +115,10 @@ export default async function handler(req: any, res: any) {
     });
   } catch (err: any) {
     console.error(err.message);
-    res.status(500).json({ message: "Error inserting table" });
+    return res.status(500).json({ message: "Error inserting table" });
   }
 
-  res.status(200).json({ message: `Inserted ${filteredResult.length} fixture(s)` });
+  res
+    .status(200)
+    .json({ message: `Inserted ${filteredResult.length} fixture(s)` });
 }
