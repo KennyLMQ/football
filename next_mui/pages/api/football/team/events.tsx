@@ -5,7 +5,7 @@ export default async function handler(req: any, res: any) {
   const season = 12310;
   const { fixture_id } = req.query;
 
-  console.log(fixture_id)
+  console.log(fixture_id);
 
   let events: { events: Event[] } = { events: [] };
 

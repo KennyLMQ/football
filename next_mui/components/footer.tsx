@@ -1,4 +1,5 @@
 import { Container, Typography } from "@mui/material";
+
 import Link from "../src/Link";
 
 export default function Footer(props: any) {

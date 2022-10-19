@@ -37,7 +37,7 @@ export default async function handler(req: any, res: any) {
     );
 
     if (teamsQuery.rowCount === 0) {
-      return res.status(404).json({ message: "Not Found"})
+      return res.status(404).json({ message: "Not Found" });
     }
     teams = teamsQuery.rows;
   } catch (err: any) {

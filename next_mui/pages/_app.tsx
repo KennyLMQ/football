@@ -1,16 +1,17 @@
-import * as React from "react";
-import Head from "next/head";
-import { AppProps } from "next/app";
-import { ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider, EmotionCache } from "@emotion/react";
+import { AppBar, Container, Switch } from "@mui/material";
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider } from "@mui/material/styles";
+import { AppProps } from "next/app";
+import Head from "next/head";
+import * as React from "react";
+import { useState } from "react";
+
+import Footer from "../components/footer";
+import Header from "../components/header";
+import createEmotionCache from "../src/createEmotionCache";
 import { createDarkTheme } from "../src/darkTheme";
 import { createLightTheme } from "../src/lightTheme";
-import createEmotionCache from "../src/createEmotionCache";
-import { AppBar, Container, Switch } from "@mui/material";
-import { useState } from "react";
-import Header from "../components/header";
-import Footer from "../components/footer";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();

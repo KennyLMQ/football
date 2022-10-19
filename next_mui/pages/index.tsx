@@ -1,9 +1,10 @@
-import * as React from "react";
-import type { NextPage } from "next";
-import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
-import Link from "../src/Link";
 import { Card, CardMedia } from "@mui/material";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import type { NextPage } from "next";
+import * as React from "react";
+
+import Link from "../src/Link";
 
 const Home: NextPage = () => {
   return (
@@ -25,7 +26,7 @@ const Home: NextPage = () => {
             alt="WIP"
           />
         </Card>
-        <br/>
+        <br />
         <Link href="/football/epl" color="secondary">
           Go to the EPL page
         </Link>

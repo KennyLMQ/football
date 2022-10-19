@@ -1,5 +1,5 @@
-import { Fixtures, Status } from "../../../../types/fixturesApi";
 import { pool } from "../../../../database/db";
+import { Fixtures, Status } from "../../../../types/fixturesApi";
 
 export default async function handler(req: any, res: any) {
   if (req.headers["api-secret"] !== process.env.API_SECRET) {
@@ -74,7 +74,9 @@ export default async function handler(req: any, res: any) {
 
   console.log(filteredResult.length);
   if (filteredResult.length === 0) {
-    return res.status(200).json({ message: "Is there success in doing nothing?" });
+    return res
+      .status(200)
+      .json({ message: "Is there success in doing nothing?" });
   }
 
   try {

@@ -1,21 +1,22 @@
 import {
-  TableContainer,
-  Paper,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  tableCellClasses,
-  IconButton,
   Box,
   Collapse,
+  IconButton,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  tableCellClasses,
+  TableContainer,
+  TableHead,
+  TableRow,
   Typography,
 } from "@mui/material";
-import Link from "../../src/Link";
-import { FixtureDb } from "../../types/fixturesDb";
-import { Event, EventType } from "../../types/fixturesApi";
 import { useState } from "react";
+
+import Link from "../../src/Link";
+import { Event, EventType } from "../../types/fixturesApi";
+import { FixtureDb } from "../../types/fixturesDb";
 
 interface PlayerDetails {
   name: string;
@@ -185,7 +186,7 @@ function FixtureRow({ fixture }: { fixture: FixtureDb }) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Table size="small" aria-label="Player's xG" sx={{ fontSize: 8}}>
+              <Table size="small" aria-label="Player's xG" sx={{ fontSize: 8 }}>
                 <TableHead>
                   <TableRow>
                     <TableCell align="right">Name</TableCell>
@@ -198,10 +199,20 @@ function FixtureRow({ fixture }: { fixture: FixtureDb }) {
                   {playerDetailRows?.map((value, index) => {
                     return (
                       <TableRow key={index}>
-                        <TableCell align="right">{value.homeG !== undefined && value.homeG > 0 ? `(${value.homeG})` : ""} {value.homeName}</TableCell>
+                        <TableCell align="right">
+                          {value.homeG !== undefined && value.homeG > 0
+                            ? `(${value.homeG})`
+                            : ""}{" "}
+                          {value.homeName}
+                        </TableCell>
                         <TableCell align="center">{value.homeXg}</TableCell>
                         <TableCell align="center">{value.awayXg}</TableCell>
-                        <TableCell align="left">{value.awayName} {value.awayG !== undefined && value.awayG > 0 ? `(${value.awayG})` : ""}</TableCell>
+                        <TableCell align="left">
+                          {value.awayName}{" "}
+                          {value.awayG !== undefined && value.awayG > 0
+                            ? `(${value.awayG})`
+                            : ""}
+                        </TableCell>
                       </TableRow>
                     );
                   })}

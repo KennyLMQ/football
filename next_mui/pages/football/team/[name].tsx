@@ -1,12 +1,13 @@
-import * as React from "react";
-import type { NextPage } from "next";
-import { useRouter } from "next/router";
+import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import { FixtureDb } from "../../../types/fixturesDb";
+import type { NextPage } from "next";
+import { useRouter } from "next/router";
+import * as React from "react";
+
 import XgTable from "../../../components/xg/table";
 import { pool } from "../../../database/db";
+import { FixtureDb } from "../../../types/fixturesDb";
 
 type Props = {
   fixtures: FixtureDb[];

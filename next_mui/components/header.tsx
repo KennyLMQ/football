@@ -1,3 +1,6 @@
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import HomeIcon from "@mui/icons-material/Home";
+import LightModeIcon from "@mui/icons-material/LightMode";
 import {
   AppBar,
   Box,
@@ -8,9 +11,6 @@ import {
   Typography,
 } from "@mui/material";
 import { Container } from "@mui/system";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import HomeIcon from "@mui/icons-material/Home";
 
 interface HeaderProps {
   isDarkTheme?: boolean;
