@@ -13,23 +13,19 @@ type Props = {
 
 const About: NextPage<Props> = ({ fixtures }) => {
   return (
-    <Container maxWidth="lg">
-      <Box
-        sx={{
-          my: 4,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Typography variant="h5" component="h1" gutterBottom>
-          Premier League 2022/2023 Completed Fixtures
-        </Typography>
-        <Box maxWidth="lg">
-          <XgTable fixtures={fixtures}></XgTable>
-        </Box>
-      </Box>
+    <Container
+      sx={{
+        my: 2,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Typography variant="h5" component="h1" gutterBottom>
+        Premier League 2022/2023 Completed Fixtures
+      </Typography>
+      <XgTable fixtures={fixtures}></XgTable>
     </Container>
   );
 };

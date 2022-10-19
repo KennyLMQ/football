@@ -15,8 +15,6 @@ import {
 import Link from "../../src/Link";
 import { FixtureDb } from "../../types/fixturesDb";
 import { Event, EventType } from "../../types/fixturesApi";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { useState } from "react";
 
 interface PlayerDetails {
@@ -104,7 +102,7 @@ function FixtureRow({ fixture }: { fixture: FixtureDb }) {
     return detailsRows;
   };
 
-  const onClickOpen = async () => {
+  const onClickScore = async () => {
     if (!open && playerDetailRows === undefined) {
       const response = await fetch(
         `/api/football/team/events?fixture_id=${fixture.fixture_id}`
@@ -130,16 +128,7 @@ function FixtureRow({ fixture }: { fixture: FixtureDb }) {
 
   return (
     <>
-      <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-        <TableCell>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={onClickOpen}
-          >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell>
+      <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
         <TableCell align="right">
           <Link
             color="inherit"
@@ -148,7 +137,15 @@ function FixtureRow({ fixture }: { fixture: FixtureDb }) {
             {fixture.home_name}
           </Link>
         </TableCell>
-        <TableCell align="center">
+        <TableCell
+          align="center"
+          onClick={onClickScore}
+          sx={{
+            "&:hover": { cursor: "pointer" },
+            boxShadow:
+              "0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)",
+          }}
+        >
           <Table
             size="small"
             sx={{
@@ -188,32 +185,23 @@ function FixtureRow({ fixture }: { fixture: FixtureDb }) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                Player's xG
-              </Typography>
-              <Table size="small" aria-label="purchases">
+              <Table size="small" aria-label="Player's xG" sx={{ fontSize: 8}}>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell>xG</TableCell>
-                    <TableCell>Name</TableCell>
-                    <TableCell>xG</TableCell>
+                    <TableCell align="right">Name</TableCell>
+                    <TableCell align="center">xG</TableCell>
+                    <TableCell align="center">xG</TableCell>
+                    <TableCell align="left">Name</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {/* <TableRow>
-                    <TableCell>-</TableCell>
-                    <TableCell>-</TableCell>
-                    <TableCell>-</TableCell>
-                    <TableCell>-</TableCell>
-                  </TableRow> */}
                   {playerDetailRows?.map((value, index) => {
                     return (
                       <TableRow key={index}>
-                        <TableCell>{value.homeName}</TableCell>
-                        <TableCell>{value.homeXg}</TableCell>
-                        <TableCell>{value.awayName}</TableCell>
-                        <TableCell>{value.awayXg}</TableCell>
+                        <TableCell align="right">{value.homeG !== undefined && value.homeG > 0 ? `(${value.homeG})` : ""} {value.homeName}</TableCell>
+                        <TableCell align="center">{value.homeXg}</TableCell>
+                        <TableCell align="center">{value.awayXg}</TableCell>
+                        <TableCell align="left">{value.awayName} {value.awayG !== undefined && value.awayG > 0 ? `(${value.awayG})` : ""}</TableCell>
                       </TableRow>
                     );
                   })}
@@ -229,14 +217,22 @@ function FixtureRow({ fixture }: { fixture: FixtureDb }) {
 
 export function FixtureTable({ fixtures }: { fixtures: FixtureDb[] }) {
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} size="small">
+    <TableContainer
+      component={Paper}
+      sx={{
+        width: "max-content",
+      }}
+    >
+      <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell></TableCell>
-            <TableCell align="right">Home</TableCell>
-            <TableCell align="center"></TableCell>
-            <TableCell align="left">Away</TableCell>
+            <TableCell align="right" sx={{ width: 200 }}>
+              Home
+            </TableCell>
+            <TableCell align="center" sx={{ width: 150 }}></TableCell>
+            <TableCell align="left" sx={{ width: 200 }}>
+              Away
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
