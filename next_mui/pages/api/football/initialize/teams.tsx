@@ -58,8 +58,6 @@ export default async function handler(req: any, res: any) {
     (value) => !teamIdList.find((id) => id === value.team_id)
   );
 
-  console.log(filteredResult);
-
   filteredResult.forEach(async (value) => {
     try {
       const insertTeam = await pool.query(

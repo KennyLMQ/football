@@ -72,7 +72,6 @@ export default async function handler(req: any, res: any) {
       !fixture_id_list.find((id) => id === value.id)
   );
 
-  console.log(filteredResult.length);
   if (filteredResult.length === 0) {
     return res
       .status(200)
