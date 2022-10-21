@@ -69,14 +69,20 @@ function FixtureRow({ fixture }: { fixture: FixtureDb }) {
         details[event.author.id]["xg"].toFixed(3)
       );
 
-      if (event.type === EventType.Goal) {
+      if (
+        event.type === EventType.Goal ||
+        event.type === EventType.PenaltyGoal
+      ) {
         details[event.author.id]["g"]++;
       }
     } else {
       details[event.author.id] = {
         name: event.author.name,
         xg: event.xg,
-        g: event.type === EventType.Goal ? 1 : 0,
+        g:
+          event.type === EventType.Goal || event.type === EventType.PenaltyGoal
+            ? 1
+            : 0,
         teamId: event.teamId,
       };
     }
