@@ -1,7 +1,7 @@
+import { EmotionJSX } from "@emotion/react/types/jsx-namespace";
+import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 import {
-  Box,
   Collapse,
-  IconButton,
   Paper,
   Table,
   TableBody,
@@ -10,7 +10,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
 } from "@mui/material";
 import { useState } from "react";
 
@@ -32,6 +31,22 @@ interface PlayerDetailsRow {
   awayName?: string;
   awayXg?: number;
   awayG?: number;
+}
+
+function Balls({ goals }: { goals: number | undefined }) {
+  if (goals == undefined) {
+    return <></>;
+  }
+
+  const result: EmotionJSX.Element[] = [];
+
+  for (let index = 0; index < goals; index++) {
+    result.push(
+      <SportsSoccerIcon color="info" sx={{ fontSize: "0.8rem" }} key={index} />
+    );
+  }
+
+  return <>{result}</>;
 }
 
 function FixtureRow({ fixture }: { fixture: FixtureDb }) {
@@ -183,16 +198,38 @@ function FixtureRow({ fixture }: { fixture: FixtureDb }) {
       </TableRow>
 
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+        <TableCell style={{ padding: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Table size="small" aria-label="Player's xG" sx={{ fontSize: 8 }}>
+            <TableContainer
+              component={Paper}
+              sx={{
+                width: "max-content",
+              }}
+            >
+              <Table
+                size="small"
+                aria-label="Player's xG"
+                sx={{
+                  [`& .${tableCellClasses.root}`]: {
+                    fontSize: "90%",
+                    paddingY: 0,
+                  },
+                }}
+              >
                 <TableHead>
                   <TableRow>
-                    <TableCell align="right">Name</TableCell>
-                    <TableCell align="center">xG</TableCell>
-                    <TableCell align="center">xG</TableCell>
-                    <TableCell align="left">Name</TableCell>
+                    <TableCell align="right" sx={{ width: 200 }}>
+                      Name
+                    </TableCell>
+                    <TableCell align="center" sx={{ width: 75 }}>
+                      xG
+                    </TableCell>
+                    <TableCell align="center" sx={{ width: 75 }}>
+                      xG
+                    </TableCell>
+                    <TableCell align="left" sx={{ width: 200 }}>
+                      Name
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -200,25 +237,19 @@ function FixtureRow({ fixture }: { fixture: FixtureDb }) {
                     return (
                       <TableRow key={index}>
                         <TableCell align="right">
-                          {value.homeG !== undefined && value.homeG > 0
-                            ? `(${value.homeG})`
-                            : ""}{" "}
-                          {value.homeName}
+                          <Balls goals={value.homeG} /> {value.homeName}
                         </TableCell>
                         <TableCell align="center">{value.homeXg}</TableCell>
                         <TableCell align="center">{value.awayXg}</TableCell>
                         <TableCell align="left">
-                          {value.awayName}{" "}
-                          {value.awayG !== undefined && value.awayG > 0
-                            ? `(${value.awayG})`
-                            : ""}
+                          {value.awayName} <Balls goals={value.awayG} />
                         </TableCell>
                       </TableRow>
                     );
                   })}
                 </TableBody>
               </Table>
-            </Box>
+            </TableContainer>
           </Collapse>
         </TableCell>
       </TableRow>
