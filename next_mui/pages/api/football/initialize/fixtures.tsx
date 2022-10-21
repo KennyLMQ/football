@@ -56,7 +56,7 @@ export default async function handler(req: any, res: any) {
       `SELECT fixture_id FROM fixtures_${season}`
     );
 
-    if (fixture_id.rowCount !== 0) {
+    if (fixture_id.rowCount === 0) {
       return res.status(404).json({ message: "Not Found" });
     }
 
