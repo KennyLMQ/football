@@ -13,7 +13,6 @@ type Props = {
 };
 
 const Team: NextPage<Props> = ({ fixtures, name }) => {
-  console.log(fixtures, name);
   return (
     <Container maxWidth="lg">
       <Box
@@ -72,7 +71,6 @@ export async function getStaticProps({ params }: { params: { name: string } }) {
     console.error(err.message);
   }
 
-  console.log(params.name);
   return {
     props: { fixtures, name: params.name },
     revalidate: 60,
