@@ -1,0 +1,18 @@
+name: daily-cron
+on:
+  schedule:
+    - cron: '0 * * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update Production Fixtures
+        run: |
+          curl --request GET \
+          --url 'https://kennylmq.com/api/football/initialize/fixtures' \
+          --header 'Api-Secret: ${{ secrets.KENNYLMQ_PRODUCTION_API_SECRET }}'
+      - name: Update Staging Fixtures
+        run: |
+          curl --request GET \
+          --url 'https://staging.kennylmq.com/api/football/initialize/fixtures' \
+          --header 'Api-Secret: ${{ secrets.KENNYLMQ_STAGING_API_SECRET }}'
