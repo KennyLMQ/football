@@ -2,6 +2,7 @@ import { EmotionJSX } from "@emotion/react/types/jsx-namespace";
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 import {
   Collapse,
+  LinearProgress,
   Paper,
   Table,
   TableBody,
@@ -51,6 +52,7 @@ function Balls({ goals }: { goals: number | undefined }) {
 
 function FixtureRow({ fixture }: { fixture: FixtureDb }) {
   const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [playerDetailRows, setPlayerDetailRows] = useState<
     PlayerDetailsRow[] | undefined
   >(undefined);
@@ -126,6 +128,8 @@ function FixtureRow({ fixture }: { fixture: FixtureDb }) {
 
   const onClickScore = async () => {
     if (!open && playerDetailRows === undefined) {
+      setIsLoading(true);
+
       const response = await fetch(
         `/api/football/team/events?fixture_id=${fixture.fixture_id}`
       );
@@ -145,6 +149,7 @@ function FixtureRow({ fixture }: { fixture: FixtureDb }) {
       setPlayerDetailRows(generateRows(homeDetails, awayDetails));
     }
 
+    setIsLoading(false);
     setOpen(!open);
   };
 
@@ -192,6 +197,11 @@ function FixtureRow({ fixture }: { fixture: FixtureDb }) {
               </TableRow>
             </TableBody>
           </Table>
+          <LinearProgress
+            sx={{
+              display: isLoading ? "block" : "none",
+            }}
+          />
         </TableCell>
         <TableCell align="left">
           <Link
@@ -202,7 +212,6 @@ function FixtureRow({ fixture }: { fixture: FixtureDb }) {
           </Link>
         </TableCell>
       </TableRow>
-
       <TableRow>
         <TableCell style={{ padding: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
