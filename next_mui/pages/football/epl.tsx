@@ -1,8 +1,6 @@
-import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import type { NextPage } from "next";
-import * as React from "react";
 
 import XgTable from "../../components/xg/table";
 import { pool } from "../../database/db";
@@ -23,8 +21,8 @@ const About: NextPage<Props> = ({ fixtures }) => {
         alignItems: "center",
       }}
     >
-      <Typography variant="h5" component="h1" gutterBottom>
-        Premier League 2022/2023 Completed Fixtures
+      <Typography variant="h5" component="h1" gutterBottom textAlign="center">
+        Premier League 2022/2023 Scores
       </Typography>
       <XgTable fixtures={fixtures}></XgTable>
     </Container>

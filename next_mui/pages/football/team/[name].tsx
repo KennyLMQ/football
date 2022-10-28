@@ -2,8 +2,6 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import type { NextPage } from "next";
-import { useRouter } from "next/router";
-import * as React from "react";
 
 import XgTable from "../../../components/xg/table";
 import { pool } from "../../../database/db";
@@ -11,9 +9,11 @@ import { FixtureDb } from "../../../types/fixturesDb";
 
 type Props = {
   fixtures: FixtureDb[];
+  name: string;
 };
 
-const Team: NextPage<Props> = ({ fixtures }) => {
+const Team: NextPage<Props> = ({ fixtures, name }) => {
+  console.log(fixtures, name);
   return (
     <Container maxWidth="lg">
       <Box
@@ -25,8 +25,14 @@ const Team: NextPage<Props> = ({ fixtures }) => {
           alignItems: "center",
         }}
       >
-        <Typography variant="h5" component="h1" gutterBottom>
-          Premier League 2022/2023 Completed Fixtures
+        <Typography
+          variant="h5"
+          component="h1"
+          gutterBottom
+          textAlign="center"
+          textTransform="capitalize"
+        >
+          {name} 2022/2023 Scores
         </Typography>
         <Box maxWidth="lg">
           <XgTable fixtures={fixtures} />
@@ -66,8 +72,9 @@ export async function getStaticProps({ params }: { params: { name: string } }) {
     console.error(err.message);
   }
 
+  console.log(params.name);
   return {
-    props: { fixtures },
+    props: { fixtures, name: params.name },
     revalidate: 60,
   };
 }
