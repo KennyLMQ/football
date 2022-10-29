@@ -1,7 +1,7 @@
 name: production-cron
 on:
   schedule:
-    - cron: '* 0/2 * * *'
+    - cron: '15 0/2 * * *'
 jobs:
   cron:
     runs-on: ubuntu-latest
