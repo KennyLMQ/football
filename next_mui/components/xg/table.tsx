@@ -14,9 +14,9 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 
-import Link from "../../src/Link";
 import { Event, EventType } from "../../types/fixturesApi";
 import { FixtureDb } from "../../types/fixturesDb";
+import Link from "../Link";
 
 interface PlayerDetails {
   name: string;

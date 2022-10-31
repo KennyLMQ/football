@@ -4,6 +4,7 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import {
   AppBar,
   Box,
+  Button,
   FormControlLabel,
   FormGroup,
   Switch,
@@ -11,6 +12,10 @@ import {
   Typography,
 } from "@mui/material";
 import { Container } from "@mui/system";
+import { useRouter } from "next/router";
+import { useState } from "react";
+
+import { NextLinkComposed } from "./Link";
 
 interface HeaderProps {
   isDarkTheme?: boolean;
@@ -18,6 +23,8 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ isDarkTheme, changeTheme }) => {
+  const { pathname } = useRouter();
+
   return (
     <AppBar component="nav">
       <Container maxWidth="lg">
@@ -25,8 +32,8 @@ const Header: React.FC<HeaderProps> = ({ isDarkTheme, changeTheme }) => {
           <HomeIcon sx={{ mr: 1 }} />
           <Typography
             variant="h6"
-            component="a"
-            href="/"
+            component={NextLinkComposed}
+            to="/"
             sx={{
               mr: 2,
               fontWeight: 700,
@@ -36,6 +43,13 @@ const Header: React.FC<HeaderProps> = ({ isDarkTheme, changeTheme }) => {
           >
             Home
           </Typography>
+          <Button
+            component={NextLinkComposed}
+            to="/football/epl"
+            color="inherit"
+          >
+            EPL
+          </Button>
           <Box sx={{ flexGrow: 1 }}></Box>
           <FormGroup>
             <FormControlLabel

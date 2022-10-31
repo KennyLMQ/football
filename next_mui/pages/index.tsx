@@ -4,7 +4,7 @@ import Container from "@mui/material/Container";
 import type { NextPage } from "next";
 import * as React from "react";
 
-import Link from "../src/Link";
+import Link from "../components/Link";
 
 const Home: NextPage = () => {
   return (

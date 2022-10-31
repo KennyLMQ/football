@@ -7,11 +7,11 @@ import Head from "next/head";
 import * as React from "react";
 import { useState } from "react";
 
-import Footer from "../components/footer";
-import Header from "../components/header";
-import createEmotionCache from "../src/createEmotionCache";
-import { createDarkTheme } from "../src/darkTheme";
-import { createLightTheme } from "../src/lightTheme";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
+import createEmotionCache from "../emotion/createEmotionCache";
+import { createDarkTheme } from "../themes/darkTheme";
+import { createLightTheme } from "../themes/lightTheme";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
