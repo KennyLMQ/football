@@ -1,5 +1,5 @@
-import { pool } from "../../../../database/db";
-import { Fixtures, Status } from "../../../../types/fixturesApi";
+import { pool } from "../../../database/db";
+import { Fixtures, Status } from "../../../types/fixturesApi";
 
 export default async function handler(req: any, res: any) {
   if (req.headers["api-secret"] !== process.env.API_SECRET) {

@@ -1,4 +1,4 @@
-import { pool } from "../../../../database/db";
+import { pool } from "../../../database/db";
 
 export default async function handler(req: any, res: any) {
   if (req.headers["api-secret"] !== process.env.API_SECRET) {

@@ -1,5 +1,5 @@
-import { pool } from "../../../../database/db";
-import { Event } from "../../../../types/fixturesApi";
+import { pool } from "../../../database/db";
+import { Event } from "../../../types/fixturesApi";
 
 export default async function handler(req: any, res: any) {
   const season = 12310;
