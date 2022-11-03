@@ -9,5 +9,5 @@ jobs:
       - name: Update Staging Fixtures
         run: |
           curl --request GET \
-          --url 'https://staging.kennylmq.com/api/football/initialize/fixtures' \
-          --header 'Api-Secret: ${{ secrets.KENNYLMQ_STAGING_API_SECRET }}'
+          --url 'https://staging.football.kennylmq.com/api/initialize/fixtures' \
+          --header 'Api-Secret: ${{ secrets.STAGING_API_SECRET }}'

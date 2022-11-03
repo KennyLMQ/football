@@ -9,5 +9,5 @@ jobs:
       - name: Update Production Fixtures
         run: |
           curl --request GET \
-          --url 'https://kennylmq.com/api/football/initialize/fixtures' \
-          --header 'Api-Secret: ${{ secrets.KENNYLMQ_PRODUCTION_API_SECRET }}'
+          --url 'https://football.kennylmq.com/api/initialize/fixtures' \
+          --header 'Api-Secret: ${{ secrets.PRODUCTION_API_SECRET }}'
