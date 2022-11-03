@@ -3,9 +3,9 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import type { NextPage } from "next";
 
-import XgTable from "../../../components/xg/table";
-import { pool } from "../../../database/db";
-import { FixtureDb } from "../../../types/fixturesDb";
+import XgTable from "../../components/xg/table";
+import { pool } from "../../database/db";
+import { FixtureDb } from "../../types/fixturesDb";
 
 type Props = {
   fixtures: FixtureDb[];

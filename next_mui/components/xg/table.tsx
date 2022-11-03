@@ -131,7 +131,7 @@ function FixtureRow({ fixture }: { fixture: FixtureDb }) {
       setIsLoading(true);
 
       const response = await fetch(
-        `/api/football/team/events?fixture_id=${fixture.fixture_id}`
+        `/api/team/events?fixture_id=${fixture.fixture_id}`
       );
       const events: Event[] = await response.json();
 
@@ -159,7 +159,7 @@ function FixtureRow({ fixture }: { fixture: FixtureDb }) {
         <TableCell align="right">
           <Link
             color="inherit"
-            href={`/football/team/${fixture.home_name.toLowerCase()}`}
+            href={`/team/${fixture.home_name.toLowerCase()}`}
           >
             {fixture.home_name}
           </Link>
@@ -206,7 +206,7 @@ function FixtureRow({ fixture }: { fixture: FixtureDb }) {
         <TableCell align="left">
           <Link
             color="inherit"
-            href={`/football/team/${fixture.away_name.toLowerCase()}`}
+            href={`/team/${fixture.away_name.toLowerCase()}`}
           >
             {fixture.away_name}
           </Link>

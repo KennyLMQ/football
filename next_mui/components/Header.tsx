@@ -43,13 +43,6 @@ const Header: React.FC<HeaderProps> = ({ isDarkTheme, changeTheme }) => {
           >
             Home
           </Typography>
-          <Button
-            component={NextLinkComposed}
-            to="/football/epl"
-            color="inherit"
-          >
-            EPL
-          </Button>
           <Box sx={{ flexGrow: 1 }}></Box>
           <FormGroup>
             <FormControlLabel
