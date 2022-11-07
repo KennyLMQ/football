@@ -90,7 +90,7 @@ export async function getStaticPaths() {
   let params = teamList.map((value) => {
     return {
       params: {
-        name: value.team_name.trim().toLowerCase(),
+        name: value.team_name.toLowerCase(),
       },
     };
   });

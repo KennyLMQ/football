@@ -9,21 +9,6 @@ export default async function handler(req: any, res: any) {
   let teams = [];
 
   try {
-    const createTable = await pool.query(
-      `
-        CREATE TABLE IF NOT EXISTS teams (
-          team_id INT UNIQUE NOT NULL,
-          team_name CHAR(64) NOT NULL
-        );
-      `
-    );
-    // console.debug(createTable);
-  } catch (err: any) {
-    console.error(err.message);
-    return res.status(500).json({ message: "Error creating table" });
-  }
-
-  try {
     const teamsQuery = await pool.query(
       `
         SELECT home_id AS team_id,
@@ -61,7 +46,7 @@ export default async function handler(req: any, res: any) {
         `
           INSERT INTO teams
           VALUES
-          (${value.team_id}, '${value.team_name.trim()}');
+          (${value.team_id}, '${value.team_name}');
         `
       );
     } catch (error: any) {
