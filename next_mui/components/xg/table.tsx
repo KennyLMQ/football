@@ -272,34 +272,108 @@ function FixtureRow({ fixture }: { fixture: FixtureDb }) {
   );
 }
 
-export function FixtureTable({ fixtures }: { fixtures: FixtureDb[] }) {
-  return (
-    <TableContainer
-      component={Paper}
-      sx={{
-        width: "max-content",
-      }}
-    >
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell align="right" sx={{ width: 200 }}>
-              Home
-            </TableCell>
-            <TableCell align="center" sx={{ width: 150 }}></TableCell>
-            <TableCell align="left" sx={{ width: 200 }}>
-              Away
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {fixtures.map((fixture) => (
-            <FixtureRow fixture={fixture} key={fixture.fixture_id} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
+export function FixtureTable({
+  fixtures,
+  toSplit,
+}: {
+  fixtures: FixtureDb[];
+  toSplit: boolean;
+}) {
+  if (toSplit) {
+    const indexArray: Array<Array<number>> = [];
+    let currentArray: Array<number> = [];
+    let currentDate = 0;
+
+    const isSameDay = function (date: number, otherDate: number) {
+      const date1 = new Date(date * 1000);
+      const date2 = new Date(otherDate * 1000);
+
+      return date1.toDateString() === date2.toDateString();
+    };
+
+    fixtures.forEach((value, index) => {
+      if (index === 0) {
+        currentDate = value.start_time;
+        currentArray.push(index);
+      } else {
+        if (isSameDay(currentDate, value.start_time)) {
+          currentArray.push(index);
+        } else {
+          indexArray.push(currentArray.slice(0));
+          currentArray = [index];
+          currentDate = value.start_time;
+        }
+      }
+
+      if (index > 0 && index === fixtures.length - 1) {
+        indexArray.push(currentArray.slice(0));
+      }
+    });
+
+    const jsxArray: Array<JSX.Element> = [];
+
+    indexArray.forEach((value) => {
+      jsxArray.push(
+        <TableContainer
+          component={Paper}
+          sx={{
+            marginBottom: 1,
+            width: "max-content",
+          }}
+        >
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell align="right" sx={{ padding: 0, width: 200 }} />
+                <TableCell align="center" sx={{ padding: 0, width: 150 }} />
+                <TableCell align="left" sx={{ padding: 0, width: 200 }} />
+              </TableRow>
+              <TableRow>
+                <TableCell align="center" colSpan={3}>
+                  {new Date(
+                    fixtures[value[0]].start_time * 1000
+                  ).toDateString()}
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {fixtures
+                .slice(value[0], value[0] + value.length)
+                .map((fixture) => (
+                  <FixtureRow fixture={fixture} key={fixture.fixture_id} />
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      );
+    });
+
+    return <>{jsxArray}</>;
+  } else {
+    return (
+      <TableContainer
+        component={Paper}
+        sx={{
+          width: "max-content",
+        }}
+      >
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell align="right" sx={{ padding: 0, width: 200 }} />
+              <TableCell align="center" sx={{ padding: 0, width: 150 }} />
+              <TableCell align="left" sx={{ padding: 0, width: 200 }} />
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {fixtures.map((fixture) => (
+              <FixtureRow fixture={fixture} key={fixture.fixture_id} />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    );
+  }
 }
 
 export default FixtureTable;

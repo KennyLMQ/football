@@ -34,7 +34,7 @@ const Team: NextPage<Props> = ({ fixtures, name }) => {
           {name} 2022/2023 Scores
         </Typography>
         <Box maxWidth="lg">
-          <XgTable fixtures={fixtures} />
+          <XgTable fixtures={fixtures} toSplit={false} />
         </Box>
       </Box>
     </Container>

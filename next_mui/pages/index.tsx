@@ -24,7 +24,7 @@ const Epl: NextPage<Props> = ({ fixtures }) => {
       <Typography variant="h5" component="h1" gutterBottom textAlign="center">
         Premier League 2022/2023 Scores
       </Typography>
-      <XgTable fixtures={fixtures}></XgTable>
+      <XgTable fixtures={fixtures} toSplit={true}></XgTable>
     </Container>
   );
 };
