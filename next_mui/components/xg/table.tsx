@@ -284,11 +284,24 @@ export function FixtureTable({
     let currentArray: Array<number> = [];
     let currentDate = 0;
 
-    const isSameDay = function (date: number, otherDate: number) {
-      const date1 = new Date(date * 1000);
-      const date2 = new Date(otherDate * 1000);
+    const isSameDay = function (
+      dateInSeconds: number,
+      otherDateInSeconds: number
+    ) {
+      const date1 = new Date(dateInSeconds * 1000);
+      const date2 = new Date(otherDateInSeconds * 1000);
 
-      return date1.toDateString() === date2.toDateString();
+      return (
+        date1.getUTCFullYear() === date2.getUTCFullYear() &&
+        date1.getUTCMonth() === date2.getUTCMonth() &&
+        date1.getUTCDate() === date2.getUTCDate()
+      );
+    };
+
+    const getUtcString = function (dateInSeconds: number) {
+      const date = new Date(dateInSeconds * 1000);
+
+      return `${date.toUTCString().substring(0, 16)} UTC`;
     };
 
     fixtures.forEach((value, index) => {
@@ -316,6 +329,7 @@ export function FixtureTable({
       jsxArray.push(
         <TableContainer
           component={Paper}
+          key={fixtures[value[0]].start_time}
           sx={{
             marginBottom: 1,
             width: "max-content",
@@ -330,9 +344,7 @@ export function FixtureTable({
               </TableRow>
               <TableRow>
                 <TableCell align="center" colSpan={3}>
-                  {new Date(
-                    fixtures[value[0]].start_time * 1000
-                  ).toDateString()}
+                  {getUtcString(fixtures[value[0]].start_time)}
                 </TableCell>
               </TableRow>
             </TableHead>
