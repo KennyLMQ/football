@@ -6,24 +6,27 @@ services:
       dockerfile: Dockerfile
       target: base
     command: sh -c "npm install && npm run dev"
-    container_name: next_web
+    container_name: ${COMPOSE_PROJECT_NAME}_web
+    env_file:
+      - ./database/.env.local
     environment:
       - NODE_ENV=development
       - PORT=3000
-      - DATABASE_LOGIN_URL=postgresql://next_mui_user:Y3nKA2Du&NCH@database:5432/next_mui_db
+      - POSTGRES_HOST=database
+      # - DATABASE_LOGIN_URL=postgresql://next_mui_user:Y3nKA2Du&NCH@database:5432/next_mui_db
     ports:
       - 3000:3000
     volumes:
       - .:/root/app
     working_dir: /root/app
   database:
-    container_name: next_db
-    image: "postgres"
+    container_name: ${COMPOSE_PROJECT_NAME}_db
+    image: "postgres:15"
     ports:
       - 5432:5432
     env_file:
       - ./database/.env.local
     volumes:
-      - next_mui_data:/var/lib/postgresql/data/
+      - ${COMPOSE_PROJECT_NAME}_data:/var/lib/postgresql/data/
 volumes:
-  next_mui_data:
+  football_data:
