@@ -14,19 +14,19 @@ docker-compose up
 
 ```sh
 cd football
-docker build . -t next_mui:latest
+docker build . -t football:latest
 ```
 
 ### Running Production Docker Locally
 
 ```sh
-docker run --publish 3000:3000 --name next_mui next_mui
+docker run --publish 3000:3000 --name football football
 ```
 
 ### Bashing into Production Docker
 
 ```sh
-docker exec -it next_mui bash
+docker exec -it football bash
 ```
 
 # Initialization
@@ -62,7 +62,7 @@ Update all three variables (`POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`)
 Create the database tables:
 
 ```sh
-psql --host=localhost --username=next_mui_user --dbname=next_mui_db -f .postgres/createTable.sql
+psql --host=localhost --username=postgres --dbname=postgres -f database/createTable.sql
 ```
 
 ## Database Table Update
