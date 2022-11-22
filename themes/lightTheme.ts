@@ -1,5 +1,7 @@
 import { createTheme, Theme } from "@mui/material/styles";
 
+import { roboto } from "./roboto";
+
 export function createLightTheme(): Theme {
   return createTheme({
     palette: {
@@ -26,6 +28,9 @@ export function createLightTheme(): Theme {
         default: "#eceff4",
         paper: "#d8dee9",
       },
+    },
+    typography: {
+      fontFamily: roboto.style.fontFamily,
     },
   });
 }

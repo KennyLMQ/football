@@ -1,13 +1,13 @@
 import createEmotionServer from "@emotion/server/create-instance";
 import Document, { Head, Html, Main, NextScript } from "next/document";
-import * as React from "react";
 
 import createEmotionCache from "../emotion/createEmotionCache";
+import { roboto } from "../themes/roboto";
 
 export default class MyDocument extends Document {
   render() {
     return (
-      <Html lang="en">
+      <Html lang="en" className={roboto.className}>
         <Head>
           <link
             rel="apple-touch-icon"
@@ -20,10 +20,6 @@ export default class MyDocument extends Document {
           <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4c566a" />
           <meta name="msapplication-TileColor" content="#224679" />
           <meta name="theme-color" content="#4c566a" />
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-          />
           <meta name="emotion-insertion-point" content="nothing" />
           {(this.props as any).emotionStyleTags}
         </Head>
