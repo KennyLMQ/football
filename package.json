@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint --fix",
     "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest",
-    "prepare": "cd ../ && husky install ./next_mui/.husky"
+    "prepare": "husky install"
   },
   "dependencies": {
     "@emotion/cache": "^11.10.5",

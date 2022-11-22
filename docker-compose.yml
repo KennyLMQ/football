@@ -2,19 +2,19 @@ version: "3"
 services:
   web:
     build:
-      context: "./next_mui"
-      # dockerfile: Dockerfile
+      context: "."
+      dockerfile: Dockerfile
       target: base
     command: sh -c "npm install && npm run dev"
     container_name: next_web
     environment:
       - NODE_ENV=development
       - PORT=3000
-      - DATABASE_LOGIN_URL=postgresql://next_mui_user:v^uZwsx$DR&8@database:5432/next_mui_db
+      - DATABASE_LOGIN_URL=postgresql://next_mui_user:Y3nKA2Du&NCH@database:5432/next_mui_db
     ports:
       - 3000:3000
     volumes:
-      - ./next_mui:/root/app
+      - .:/root/app
     working_dir: /root/app
   database:
     container_name: next_db
@@ -22,7 +22,7 @@ services:
     ports:
       - 5432:5432
     env_file:
-      - ./postgres/database.env
+      - ./database/.env.local
     volumes:
       - next_mui_data:/var/lib/postgresql/data/
 volumes:

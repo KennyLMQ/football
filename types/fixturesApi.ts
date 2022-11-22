@@ -9,47 +9,47 @@ export interface Fixtures {
 }
 
 export interface Fixture {
-  id:         number;
-  status:     Status;
-  startTime:  number;
+  id: number;
+  status: Status;
+  startTime: number;
   updateTime: number;
-  homeTeam:   Details;
-  awayTeam:   Details;
-  country:    Details;
+  homeTeam: Details;
+  awayTeam: Details;
+  country: Details;
   tournament: Details;
-  season:     Details;
-  events:     Event[];
-  odds:       Odd[];
-  duration?:  Duration;
+  season: Details;
+  events: Event[];
+  odds: Odd[];
+  duration?: Duration;
   homeScore?: Score;
   awayScore?: Score;
-  xg?:        Xg;
+  xg?: Xg;
 }
 
 export interface Score {
-  final:     number;
+  final: number;
   firstHalf: number;
 }
 
 export interface Details {
-  id:   number;
+  id: number;
   name: string;
 }
 
 export interface Duration {
-  total:      number;
-  firstHalf:  number;
+  total: number;
+  firstHalf: number;
   secondHalf: number;
 }
 
 export interface Event {
-  homeScore:         number;
-  awayScore:         number;
-  minute:            number;
-  author:            Details;
-  teamId:            number;
-  type:              EventType;
-  xg:                number | null;
+  homeScore: number;
+  awayScore: number;
+  minute: number;
+  author: Details;
+  teamId: number;
+  type: EventType;
+  xg: number | null;
   additionalMinute?: number;
 }
 

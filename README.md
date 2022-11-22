@@ -13,7 +13,7 @@ docker-compose up
 ### Building Production Docker Image
 
 ```sh
-cd next_mui
+cd football
 docker build . -t next_mui:latest
 ```
 
@@ -31,20 +31,31 @@ docker exec -it next_mui bash
 
 # Initialization
 
-## Environment Variables
+## Application Environment Variables
 
-Create `.env.local` in the `next_mui` folder and add the following environment variables to utilise Rapid API:
+Duplicate the `.env.sample` file:
 
-- XG_URL=https://football-xg-statistics.p.rapidapi.com
-- XG_KEY=<YOUR_KEY>
-- XG_HOST=football-xg-statistics.p.rapidapi.com
+```sh
+cd football
+cp .env.sample .env.local
+```
 
-Values are retrieved from [RapidAPI](https://rapidapi.com/Wolf1984/api/football-xg-statistics/). Account will need to be created to get the `XG_KEY` value.
+Update both variables (`XG_KEY`, `API_SECRET`) in the file.
 
-\
-There is no authentication for this application, but there are certain APIs we do not want the public to use. Add another variable to 'secure' these APIs:
+Create an account with [RapidAPI](https://rapidapi.com/Wolf1984/api/football-xg-statistics/) to get the `XG_KEY` value.
 
-- API_SECRET=<YOUR_SECRET>
+There is no authentication for this application, but there are private APIs that are secured by `API_SECRET`. Use your own value for this.
+
+## Database Environment Variables
+
+Duplicate the `.env.sample` file in the database folder:
+
+```sh
+cd football/database
+cp .env.sample .env.local
+```
+
+Update all three variables (`POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`) in the file.
 
 ## Database Table Creation
 
