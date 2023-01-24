@@ -1,7 +1,7 @@
 name: production-cron
 on:
   schedule:
-    - cron: '15 0/2 * * *'
+    - cron: "15 0/2 * * *"
 jobs:
   cron:
     runs-on: ubuntu-latest
@@ -11,3 +11,6 @@ jobs:
           curl --request GET \
           --url 'https://football.kennylmq.com/api/initialize/fixtures' \
           --header 'Api-Secret: ${{ secrets.PRODUCTION_API_SECRET }}'
+      - name: Redeploy Production
+        run: |
+          curl -X POST ${{ secrets.MAIN_DEPLOY_HOOK }}
