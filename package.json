@@ -12,29 +12,29 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@emotion/cache": "^11.10.5",
-    "@emotion/react": "^11.10.5",
+    "@emotion/cache": "^11.10.8",
+    "@emotion/react": "^11.10.8",
     "@emotion/server": "^11.10.0",
-    "@emotion/styled": "^11.10.5",
-    "@mui/icons-material": "^5.11.0",
-    "@mui/material": "^5.11.6",
-    "@next/font": "^13.1.5",
-    "next": "^13.1.5",
-    "pg": "^8.8.0",
+    "@emotion/styled": "^11.10.8",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.12.2",
+    "@next/font": "^13.3.1",
+    "next": "^13.3.1",
+    "pg": "^8.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/node": "^18.11.18",
+    "@types/node": "^18.16.3",
     "@types/pg": "^8.6.6",
-    "@types/react": "^18.0.27",
-    "eslint": "^8.32.0",
-    "eslint-config-next": "^13.1.5",
-    "eslint-config-prettier": "^8.6.0",
+    "@types/react": "^18.2.0",
+    "eslint": "^8.39.0",
+    "eslint-config-next": "^13.3.1",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-simple-import-sort": "^9.0.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
     "husky": "^8.0.3",
-    "lint-staged": "^13.1.0",
-    "typescript": "^4.9.4"
+    "lint-staged": "^13.2.2",
+    "typescript": "^5.0.4"
   }
 }
